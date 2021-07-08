@@ -7,6 +7,12 @@
         body {
             background: #e8f1f9
         }
+        .code {
+            color: #2299ff;
+        }
+        .alert {
+            margin-top: 1em;
+        }
     </style>
 {% endblock %}
 
@@ -19,14 +25,21 @@
         <div class="row">
             <div class="col-md-10 col-lg-8 mx-lg-auto mx-md-auto">
                 <h1 class="pt-5 pb-2">Master Password Generator for laptops</h1>
-                <p class="text-muted">Copyright (C) 2009 <a href="https://github.com/dogbert/bios-pwgen/blob/master/pwgen-fsi-hex.py">dogbert</a> dogber1@gmail.com / Updated and adapted by Basile 2021</p>
-                <p class="alert alert-info"><strong>Instructions</strong><br/> After entering the wrong password for the third time, you will receive a
+                <p class="text-muted">Copyright (C) 2009 <a
+                        href="https://github.com/dogbert/bios-pwgen/blob/master/pwgen-fsi-hex.py">dogbert</a>
+                    dogber1@gmail.com / Updated and adapted by Basile 2021</p>
+                <p class="alert alert-info"><strong>Instructions</strong><br/> After entering the wrong password for the
+                    third time, you will receive a
                     hexadecimal code from which the master password can be calculated,
                     e.g. <strong>0A1B2D3E</strong> or <strong>AAAA-BBBB-CCCC-DEAD-BEEF</strong></p>
 
                 {{ wtf.quick_form(form) }}
-
-                <p class="pt-3"><strong>{{ message }}</strong></p>
+                {% if display %}
+                    <p class="pt-3"> Enter this code :</p>
+                    <p class="pt-0 display-1 code">{{ message }}</p>
+                {% elif message != '' %}
+                    <p class="alert alert-danger"><strong> Error {{ message }}</strong></p>
+                {% endif %}
             </div>
         </div>
     </div>

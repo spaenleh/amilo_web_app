@@ -26,14 +26,15 @@ class CodeForm(FlaskForm):
 def index():
     form = CodeForm()
     message = ''
+    display = False
     if form.validate_on_submit():
         code = form.master_code.data
         if re.findall(RE_CODE, code):
             message = utils.get_password(code)
-            return render_template('index.html', form=form, message=message)
+            display = True
         else:
             message = 'Invalide code format, refer to info'
-    return render_template('index.html', form=form, message=message)
+    return render_template('index.html', form=form, message=message, display=display)
 
 
 if __name__ == '__main__':
